@@ -1,0 +1,72 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id "net.ltgt.apt-idea" version "0.18"
+}
+
+repositories {
+    mavenCentral()
+    //google()
+    //jcenter()
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    autovalueVersion = '1.6.2'
+    graphqlSpringbootStarterVerison = '5.0.2'
+    graphqlToolsVersion = '5.2.0'
+    guavaVersion = '20.0'
+    h2databaseVersion = '1.4.197'
+}
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+    compile.exclude module: 'spring-boot-starter-logging'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.springframework.boot:spring-boot-starter-log4j2")
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile("com.graphql-java:graphql-spring-boot-starter:${graphqlSpringbootStarterVerison}")
+    compile("com.graphql-java:graphql-java-tools:${graphqlToolsVersion}")
+    compile("com.graphql-java:graphiql-spring-boot-starter:${graphqlSpringbootStarterVerison}")
+    compile("com.google.guava:guava:${guavaVersion}")
+    compile("com.google.auto.value:auto-value-annotations:${autovalueVersion}")
+    compile("com.google.code.findbugs:jsr305:3.0.2")
+
+    compileOnly("com.google.auto.value:auto-value:${autovalueVersion}")
+
+    annotationProcessor "com.google.auto.value:auto-value:${autovalueVersion}"
+
+    runtime("com.h2database:h2:${h2databaseVersion}")
+    runtime('org.springframework.boot:spring-boot-devtools')
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+bootJar {
+    baseName = 'graphql-demo'
+    version =  '0.1.0'
+}

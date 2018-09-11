@@ -1,0 +1,16 @@
+# A user (i.e. author) submitted post.
+type Post {
+    id: ID!
+    title: String!
+    text: String
+    category: String
+    author: Author!
+}
+
+# The author info.
+type Author {
+    id: ID!
+    name: String!
+    thumbnail: String
+    posts: [Post]!
+}
