@@ -28,6 +28,8 @@ public abstract class Post {
         return id;
     }
 
+    Post() {}
+
     public static Builder builder() {
         return new AutoValue_Post.Builder();
     }

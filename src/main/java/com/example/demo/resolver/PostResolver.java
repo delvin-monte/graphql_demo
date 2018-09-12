@@ -1,4 +1,4 @@
-package com.example.demo.resolver.data;
+package com.example.demo.resolver;
 
 import com.example.demo.data.Author;
 import com.example.demo.data.Post;

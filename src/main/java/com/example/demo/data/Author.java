@@ -27,6 +27,11 @@ public abstract class Author {
 
         public abstract Builder id(long id);
 
+        public Builder id(String id) {
+            id(Long.parseLong(id));
+            return this;
+        }
+
         public abstract Author build();
     }
 }
