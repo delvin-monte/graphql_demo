@@ -16,12 +16,10 @@ plugins {
 
 repositories {
     mavenCentral()
-    //google()
-    //jcenter()
 }
 
 group 'com.example'
-version '1.0-SNAPSHOT'
+version '1.0.1'
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -42,6 +40,7 @@ ext {
 configurations {
     compile.exclude module: 'spring-boot-starter-tomcat'
     compile.exclude module: 'spring-boot-starter-logging'
+    testCompile.exclude group: 'org.hamcrest'
 }
 
 dependencies {
@@ -54,7 +53,7 @@ dependencies {
     compile("com.graphql-java:graphiql-spring-boot-starter:${graphqlSpringbootStarterVerison}")
     compile("com.google.guava:guava:${guavaVersion}")
     compile("com.google.auto.value:auto-value-annotations:${autovalueVersion}")
-    compile("com.google.code.findbugs:jsr305:3.0.2")
+    compile("com.google.code.findbugs:jsr305:3.+")
 
     compileOnly("com.google.auto.value:auto-value:${autovalueVersion}")
 
@@ -63,7 +62,10 @@ dependencies {
     runtime("com.h2database:h2:${h2databaseVersion}")
     runtime('org.springframework.boot:spring-boot-devtools')
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "junit:junit:4.12"
+    testCompile "org.springframework.boot:spring-boot-test-autoconfigure"
+    testCompile "com.google.truth:truth:0.42"
+    testCompile "org.mockito:mockito-core:2.+"
 }
 
 bootJar {
