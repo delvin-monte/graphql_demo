@@ -4,6 +4,7 @@ import com.example.demo.data.Author;
 import com.example.demo.data.Post;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.PostRepository;
 import com.google.common.collect.ImmutableList;
 
@@ -18,21 +19,24 @@ public class QueryResolver implements GraphQLQueryResolver {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private AuthorRepository authorRepository;
+
     public List<Post> recentPosts(int count, int offset) {
-        return ImmutableList.of(
-                Post.builder().title("Post #1").text("This is a post!").authorId("1").build());
+        final Iterable<Post> data = postRepository.findAll();
+        final List<Post> posts = ImmutableList.copyOf(data);
+        return posts;
     }
 
     public List<Post> allPosts(int count, int offset) {
-        final ImmutableList<Post> posts = ImmutableList.copyOf(postRepository.findAll());
+        final Iterable<Post> data = postRepository.findAll();
+        final List<Post> posts = ImmutableList.copyOf(data);
         return posts;
     }
 
     public List<Author> allAuthors(int count, int offset) {
-        final ImmutableList<Post> posts = ImmutableList.of(
-                Post.builder().title("Post #1").text("This is a post!").authorId("1").build());
-        return ImmutableList.of(
-                Author.builder().id(1).name("Author Author").posts(posts).build()
-        );
+        final Iterable<Author> data = authorRepository.findAll();
+        final List<Author> authors = ImmutableList.copyOf(data);
+        return authors;
     }
 }
