@@ -28,6 +28,11 @@
             <AppenderRef ref="File" />
         </Logger>
 
+        <Logger name="graphql.servlet.internal" level="error" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="File" />
+        </Logger>
+
         <Logger name="org.eclipse.jetty.websocket" level="error" additivity="false">
             <AppenderRef ref="Console" />
             <AppenderRef ref="File" />

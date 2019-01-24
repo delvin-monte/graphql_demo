@@ -1,37 +1,28 @@
 package com.example.demo.data;
 
-import com.google.auto.value.AutoValue;
+import lombok.Data;
+import lombok.Getter;
 
-import javax.annotation.Nullable;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
-@AutoValue
-public abstract class Author {
-    public abstract long id();
-    public abstract String name();
-    @Nullable public abstract String thumbnail();
-    @Nullable public abstract List<Post> posts();
+@Data
+@Entity
+@Table(indexes = {@Index(columnList = "name")})
+public class Author {
+    @Getter(onMethod_ = {@Id, @GeneratedValue})
+    private long id;
 
-    public static Builder builder() {
-        return new AutoValue_Author.Builder();
-    }
+    private String name;
 
-    @AutoValue.Builder
-    public abstract static class Builder {
+    private String thumbnail;
 
-        public abstract Builder name(String name);
-
-        public abstract Builder thumbnail(String thumbnail);
-
-        public abstract Builder posts(List<Post> posts);
-
-        public abstract Builder id(long id);
-
-        public Builder id(String id) {
-            id(Long.parseLong(id));
-            return this;
-        }
-
-        public abstract Author build();
-    }
+    @Getter(onMethod_ = {@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)})
+    private List<Post> posts;
 }

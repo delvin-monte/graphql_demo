@@ -1,5 +1,10 @@
 # IDE files
 .idea/
+.settings/
+bin/
+.classpath
+.project
+.factorypath
 settings.gradle
 **/.DS_Store
 
@@ -12,4 +17,6 @@ gradlew.bat
 out/
 
 # Auto-generated files
+.apt_generated/
 **/generated/
+.*.md.html
